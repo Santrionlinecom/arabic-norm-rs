@@ -71,7 +71,7 @@ jobs:
             set -e
             python3 -m venv .venv
             source .venv/bin/activate
-            pip install pytest
+            pip install pytest hypothesis
             pip install arabic-norm --no-index --no-deps --find-links dist --force-reinstall
             pip install arabic-norm
             pytest
