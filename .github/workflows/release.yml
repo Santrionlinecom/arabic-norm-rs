@@ -37,7 +37,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist -i python3.10 python3.11 python3.12 python3.13 python3.14
           sccache: ${{ !startsWith(github.ref, 'refs/tags/') }}
           manylinux: auto
       - name: Upload wheels
@@ -55,7 +55,7 @@ jobs:
           uv venv .venv
           source .venv/bin/activate
           uv pip install arabic-norm --no-index --no-deps --find-links dist --reinstall
-          uv pip install arabic-norm pytest
+          uv pip install arabic-norm pytest hypothesis
           pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') && matrix.platform.target != 'ppc64' }}
@@ -94,7 +94,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist --find-interpreter
+          args: --release --out dist -i python3.10 python3.11 python3.12 python3.13 python3.14
           sccache: ${{ !startsWith(github.ref, 'refs/tags/') }}
           manylinux: musllinux_1_2
       - name: Upload wheels
@@ -111,7 +111,7 @@ jobs:
             python3 -m virtualenv .venv
             source .venv/bin/activate
             pip install arabic-norm --no-index --no-deps --find-links dist --force-reinstall
-            pip install arabic-norm pytest
+            pip install arabic-norm pytest hypothesis
             pytest
           '
       - name: pytest
@@ -128,7 +128,7 @@ jobs:
             python3 -m virtualenv .venv
             source .venv/bin/activate
             pip install arabic-norm --no-index --no-deps --find-links dist --force-reinstall
-            pip install arabic-norm pytest
+            pip install arabic-norm pytest hypothesis
             pytest
 
   windows:
@@ -164,7 +164,7 @@ jobs:
           uv venv .venv
           source .venv/Scripts/activate
           uv pip install arabic-norm --no-index --no-deps --find-links dist --reinstall
-          uv pip install arabic-norm pytest
+          uv pip install arabic-norm pytest hypothesis
           pytest
 
   macos:
@@ -199,7 +199,7 @@ jobs:
           uv venv .venv
           source .venv/bin/activate
           uv pip install arabic-norm --no-index --no-deps --find-links dist --reinstall
-          uv pip install arabic-norm pytest
+          uv pip install arabic-norm pytest hypothesis
           pytest
 
   sdist:
